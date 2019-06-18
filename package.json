@@ -1,0 +1,74 @@
+{
+  "name": "koa-skeleton",
+  "version": "0.1",
+  "description": "koa test",
+  "homepage": "https://github.com/kosten854/koa-skeleton",
+  "author": {
+    "name": "Konstantin",
+    "email": "yag0da@yandex.ru",
+    "url": "https://github.com/kosten854"
+  },
+  "contributors": [
+    {
+      "name": "Konstantin",
+      "email": "yag0da@yandex.ru",
+      "url": "https://github.com/kosten854"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kosten854/koa-skeleton"
+  },
+  "bugs": {
+    "url": "https://github.com/kosten854/koa-skeleton/issues"
+  },
+  "keywords": [],
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "main": "app",
+  "scripts": {
+    "start": "node app",
+    "dev": "NODE_ENV=development nodemon --quiet | pino-pretty -c -l -t",
+    "test": "NODE_ENV=test jest --passWithNoTests",
+    "test:unit": "npm test -- test/unit",
+    "test:integration": "npm test -- test/integration",
+    "test:watch": "npm test -- --watch",
+    "test:watch:unit": "npm run test:unit -- --watch",
+    "test:watch:integration": "npm run test:integration -- --watch",
+    "test:coverage": "npm test -- --coverage",
+    "test:coverage:unit": "npm run test:unit -- --coverage",
+    "test:coverage:integration": "npm run test:integration -- --coverage",
+    "lint": "eslint app test",
+    "lint:app": "eslint app",
+    "lint:test": "eslint test"
+  },
+  "dependencies": {
+    "@kasa/koa-logging": "^0.3.0",
+    "@kasa/koa-request-id": "^2.0.1",
+    "@koa/cors": "^3.0.0",
+    "dotenv": "^7.0.0",
+    "elastic-apm-node": "^2.10.0",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "pino": "^5.12.3",
+    "swagger-jsdoc": "^3.2.9",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-kasa": "^0.4.0",
+    "husky": "^2.1.0",
+    "jest": "^24.7.1",
+    "jest-extended": "^0.11.1",
+    "jest-junit": "^6.3.0",
+    "lint-staged": "^8.1.5",
+    "nodemon": "^1.18.11",
+    "pino-pretty": "^3.0.0",
+    "prettier": "^1.17.0",
+    "supertest": "^4.0.2"
+  }
+}
