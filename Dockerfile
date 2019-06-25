@@ -9,7 +9,7 @@
 #
 
 ### BASE
-FROM node:10.15.0-alpine AS base
+FROM node:12 AS base
 LABEL maintainer "Konstantin <yag0da@yandex.ru>"
 # Set the working directory
 WORKDIR /app
@@ -56,5 +56,6 @@ HEALTHCHECK --interval=5s \
 # Set NODE_ENV to 'development' if --build-arg DEBUG=1, or 'production'
 ENV NODE_ENV=${DEBUG:+development}
 ENV NODE_ENV=${NODE_ENV:-production}
+
 # Run
 CMD [ "node", "app" ]
