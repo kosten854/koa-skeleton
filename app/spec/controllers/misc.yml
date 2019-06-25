@@ -1,0 +1,26 @@
+/spec:
+  get:
+    tags:
+    - misc
+    - public
+    summary: Get Open API Specification.
+    operationId: misc.getSwaggerSpec
+    responses:
+      '200':
+        x-summary: OK
+        description: Describe Swagger Open API Specification
+/status:
+  get:
+    tags:
+    - misc
+    - public
+    summary: Provide a detailed information about the service health.
+    operationId: misc.healthcheck
+    responses:
+      '200':
+        x-summary: OK
+        description: Healthy Service
+        content:
+          application/json:
+            example:
+              status: 'pass'

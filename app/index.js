@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-'use strict';
+('use strict');
 
-// Load APM on production environment
 const config = require('./config');
 const apm = require('./apm');
 const App = require('./app');
 const logger = require('./logger');
-
+const db = require('./db');
 
 const app = new App();
 
@@ -15,7 +14,6 @@ function handleError(err, ctx) {
   if (apm.active) {
     apm.captureError(err);
   }
-
   if (ctx == null) {
     logger.error({ err, event: 'error' }, 'Unhandled exception occured');
   }
@@ -35,20 +33,32 @@ app.on('error', handleError);
 
 // Start server
 if (!module.parent) {
-  const server = app.listen(config.port, config.host, () => {
-    logger.info({ event: 'execute' }, `API server listening on ${config.host}:${config.port}, in ${config.env}`);
-  });
-  server.on('error', handleError);
+  db.getConnection()
+    .then(async conn => {
+      logger.info('database - connected');
+      app.context.db = conn;
+      const server = app.listen(config.port, config.host, () => {
+        logger.info(
+          { event: 'execute' },
+          `API server listening on ${config.host}:${config.port}, in ${config.env}`
+        );
+      });
+      server.on('error', handleError);
 
-  const errors = ['unhandledRejection', 'uncaughtException'];
-  errors.map(error => {
-    process.on(error, handleError);
-  });
+      const errors = ['unhandledRejection', 'uncaughtException'];
+      errors.map(error => {
+        process.on(error, handleError);
+      });
 
-  const signals = ['SIGTERM', 'SIGINT', 'SIGUSR2'];
-  signals.map(signal => {
-    process.once(signal, () => terminate(signal));
-  });
+      const signals = ['SIGTERM', 'SIGINT', 'SIGUSR2'];
+      signals.map(signal => {
+        process.once(signal, () => terminate(signal));
+      });
+    })
+    .catch(err => {
+      logger.error("Db doesn't connected", err);
+      process.kill(process.pid);
+    });
 }
 
 // Expose app

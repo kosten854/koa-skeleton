@@ -4,7 +4,6 @@ const path = require('path');
 const swaggerJSDoc = require('swagger-jsdoc');
 const pkginfo = require('../../package.json');
 
-
 const info = {
   title: pkginfo.name,
   description: pkginfo.description,
@@ -28,6 +27,7 @@ const options = {
   apis: [
     path.join(__dirname, './tags.yaml'),
     path.join(__dirname, '../controllers/**/*.js'),
+    path.join(__dirname, './controllers/*.yml'),
     path.join(__dirname, './components/schemas.yaml'),
     path.join(__dirname, './components/headers.yaml'),
     path.join(__dirname, './components/parameters.yaml'),
