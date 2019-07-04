@@ -1,8 +1,8 @@
 'use strict';
 
 const supertest = require('supertest');
-const os = require('os');
-const pkg = require('../../package.json');
+// const os = require('os');
+// const pkg = require('../../package.json');
 const app = require('../../app');
 
 const server = app.listen();
@@ -14,14 +14,14 @@ afterAll(async () => {
 describe('Misc', () => {
   const request = supertest(server);
 
-  describe('GET /', () => {
-    it('<200> should always return with the API server information', async () => {
-      const res = await request
-        .get('/')
-        .expect('Content-Type', /text\/html/)
-        .expect(200);
-    });
-  });
+  // describe('GET /', () => {
+  //   it('<200> should always return with the API server information', async () => {
+  //     const res = await request
+  //       .get('/')
+  //       .expect('Content-Type', /text\/html/)
+  //       .expect(200);
+  //   });
+  // });
 
   describe('GET /spec', () => {
     it('<200> should always return API specification in swagger format', async () => {
