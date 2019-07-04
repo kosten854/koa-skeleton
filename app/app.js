@@ -6,7 +6,6 @@ const bodyParser = require('koa-bodyparser');
 const cors = require('@koa/cors');
 const logging = require('@kasa/koa-logging');
 const requestId = require('@kasa/koa-request-id');
-const apmMiddleware = require('./middlewares/apm');
 const responseHandler = require('./middlewares/responseHandler');
 const errorHandler = require('./middlewares/errorHandler');
 const logger = require('./logger');
@@ -28,10 +27,13 @@ class App extends Koa {
   }
 
   _configureMiddlewares() {
+    if (this.env === 'development') {
+      this.use(
+        require('koa-mount')('/dev/docs', require('koa-static')(path.join(__dirname, '/docs'), {}))
+      );
+    }
     this.use(errorHandler());
-    this.use(apmMiddleware());
     this.use(responseHandler());
-    this.use(require('koa-static')(path.join(__dirname, '/docs'), {}));
     this.use(
       bodyParser({
         enableTypes: ['json', 'form'],
