@@ -48,7 +48,7 @@
     "@kasa/koa-logging": "^0.3.0",
     "@kasa/koa-request-id": "^2.0.1",
     "@koa/cors": "^3.0.0",
-    "ajv": "^6.10.0",
+    "ajv": "^6.12.3",
     "dotenv": "^7.0.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.0",
